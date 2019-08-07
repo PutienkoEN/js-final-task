@@ -1,6 +1,8 @@
-import './style.css';
+const Entry = require('./client/entry/entry');
 
-console.log({
-    a: '2',
-    b: '3',
-});
+const entry = new Entry("Test");
+
+const entry2 = entry.create();
+
+document.body.appendChild(entry2);
+
