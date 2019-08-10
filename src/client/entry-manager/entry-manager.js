@@ -7,8 +7,7 @@ module.exports = class EntryManager {
     }
 
     create() {
-        const addEntryArea = document.createElement('div');
-        addEntryArea.id = 'add-entry-area';
+        const addEntryArea = this.createAddEntryArea();
 
         const openEntryList = document.createElement('div');
         openEntryList.id = 'open-entry-list';
@@ -23,15 +22,43 @@ module.exports = class EntryManager {
         return todoList;
     }
 
-    createNewEntry(entryText) {
-        const entry = new Entry(this.getEntryId());
+    createAddEntryArea() {
+        const addEntryArea = document.createElement('div');
+        addEntryArea.id = 'add-entry-area';
 
-        const entryHtml = entry.create(entryText);
-        this.openEntryList.appendChild(entryHtml);
+        const textInput = document.createElement('input');
+        textInput.type = 'text';
+        textInput.id = 'new-entry-text';
+
+        const addEntryButton = document.createElement('button');
+        addEntryButton.textContent = "ADD";
+        addEntryButton.addEventListener("click", createEntry.bind(this, textInput));
+
+        addEntryArea.appendChild(textInput);
+        addEntryArea.appendChild(addEntryButton);
+
+        return addEntryArea;
     }
-
-    getEntryId() {
-        return `entry-${this.entryIdCount}`;
-    }
-
 };
+
+function createEntry(textInput) {
+    if (!textInput.value) {
+        return;
+    }
+
+    const entryId = getEntryId.bind(this)();
+    const newEntryHtml = createNewEntry(textInput.value, entryId);
+    textInput.value = '';
+    this.openEntryList.appendChild(newEntryHtml);
+}
+
+function createNewEntry(entryText, entryId) {
+    const entry = new Entry(entryId);
+    return entry.create(entryText);
+}
+
+function getEntryId() {
+    const entryId = `entry-${this.entryIdCount}`;
+    this.entryIdCount++;
+    return entryId;
+}

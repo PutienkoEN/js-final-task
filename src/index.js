@@ -6,5 +6,3 @@ const entryManager = new EntryManager();
 const entryManagerHtml = entryManager.create();
 
 document.body.appendChild(entryManagerHtml);
-
-entryManager.createNewEntry("First Entry");
