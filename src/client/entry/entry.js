@@ -27,6 +27,7 @@ module.exports = class Entry {
         const text = document.createElement('span');
         text.id = 'note-text-1';
         text.textContent = this.text;
+        text.classList.add("note-text");
 
         const div = document.createElement('div');
         div.id = 'entry-1';
