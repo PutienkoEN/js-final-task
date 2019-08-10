@@ -2,7 +2,7 @@ import './style.css';
 
 const Entry = require('./client/entry/entry');
 
-const entry = new Entry("Test");
-const entry2 = entry.create();
+const firstEntry = new Entry();
+const htmlEntry = firstEntry.create("Text");
 
-document.body.appendChild(entry2);
+document.body.appendChild(htmlEntry);

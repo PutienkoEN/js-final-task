@@ -1,41 +1,31 @@
 module.exports = class Entry {
-    constructor(text) {
-        this.text = text;
-        this.creationDate = new Date();
-        this.done = false;
-        this.resolveDate = null;
+    constructor(entryId) {
+        this.entryId = entryId;
     }
 
-    begin() {
-        this.done = false;
-        this.resolveDate = null;
-    }
-
-    complete() {
-        this.done = true;
-        this.resolveDate = new Date();
-    }
-
-    create() {
-        const labelForCheckbox = document.createElement('label');
-        labelForCheckbox.setAttribute('for', 'check-box-1');
-
+    create(textValue) {
         const checkbox = document.createElement('input');
-        checkbox.id = 'check-box-1';
+        checkbox.classList.add('check-box');
         checkbox.type = 'checkbox';
 
+        const labelForCheckbox = document.createElement('label');
+        labelForCheckbox.appendChild(checkbox);
+
         const text = document.createElement('span');
-        text.id = 'note-text-1';
-        text.textContent = this.text;
-        text.classList.add("note-text");
+        text.classList.add('text');
+        text.textContent = textValue;
+
+        const textBox = document.createElement('span');
+        textBox.classList.add('text-block');
+        textBox.appendChild(text);
 
         const div = document.createElement('div');
-        div.id = 'entry-1';
+        div.id = this.entryId;
 
         div.appendChild(labelForCheckbox);
-        div.appendChild(checkbox);
-        div.appendChild(text);
+        div.appendChild(textBox);
 
         return div;
     }
+
 };
