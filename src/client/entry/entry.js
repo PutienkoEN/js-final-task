@@ -28,4 +28,21 @@ module.exports = class Entry {
         return div;
     }
 
+    startEditing() {
+        const entry = document.getElementById(this.entryId);
+        const textBlock = entry.querySelector('.text-block');
+        const text = textBlock.querySelector('.text');
+
+        const editorArea = createEditorArea(text.textContent);
+
+        textBlock.appendChild(editorArea);
+    }
 };
+
+function createEditorArea(textToEdit) {
+    const editorArea = document.createElement('input');
+    editorArea.type = 'text';
+    editorArea.value = textToEdit;
+
+    return editorArea;
+}

@@ -6,3 +6,5 @@ const firstEntry = new Entry();
 const htmlEntry = firstEntry.create("Text");
 
 document.body.appendChild(htmlEntry);
+
+firstEntry.startEditing();
