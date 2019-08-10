@@ -1,3 +1,7 @@
 .text-block {
     border: 2px solid cornflowerblue;
 }
+
+.hidden {
+    display: none;
+}
