@@ -1,10 +1,8 @@
 import './style.css';
 
-const Entry = require('./client/entry/entry');
+const EntryManager = require('./client/entry-manager/entry-manager');
 
-const firstEntry = new Entry();
-const htmlEntry = firstEntry.create("Text");
+const entryManager = new EntryManager();
+const entryManagerHtml = entryManager.create();
 
-document.body.appendChild(htmlEntry);
-
-firstEntry.startEditing();
+document.body.appendChild(entryManagerHtml);
