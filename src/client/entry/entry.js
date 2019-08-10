@@ -15,9 +15,14 @@ module.exports = class Entry {
         text.classList.add('text');
         text.textContent = textValue;
 
+        const creationDate = document.createElement('span');
+        creationDate.classList.add('creation-date');
+        creationDate.textContent = getCurrentDate();
+
         const textBox = document.createElement('span');
         textBox.classList.add('text-block');
         textBox.appendChild(text);
+        textBox.appendChild(creationDate);
 
         const div = document.createElement('div');
         div.id = this.entryId;
@@ -65,4 +70,9 @@ function applyChanges(event, input, textArea) {
 function exitEditMode(input, textArea) {
     input.remove();
     textArea.classList.remove('hidden');
+}
+
+function getCurrentDate() {
+    const date = new Date();
+    return `${date.getHours()}:${date.getMinutes()}`;
 }
