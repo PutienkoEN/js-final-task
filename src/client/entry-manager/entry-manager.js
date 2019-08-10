@@ -1,6 +1,9 @@
+const Entry = require('../entry/entry');
+
 module.exports = class EntryManager {
     constructor() {
-        this.entries = []
+        this.entryIdCount = 1;
+        this.openEntryList = null;
     }
 
     create() {
@@ -9,6 +12,7 @@ module.exports = class EntryManager {
 
         const openEntryList = document.createElement('div');
         openEntryList.id = 'open-entry-list';
+        this.openEntryList = openEntryList;
 
         const todoList = document.createElement('div');
         todoList.id = 'todo-list';
@@ -19,5 +23,15 @@ module.exports = class EntryManager {
         return todoList;
     }
 
+    createNewEntry(entryText) {
+        const entry = new Entry(this.getEntryId());
+
+        const entryHtml = entry.create(entryText);
+        this.openEntryList.appendChild(entryHtml);
+    }
+
+    getEntryId() {
+        return `entry-${this.entryIdCount}`;
+    }
 
 };
