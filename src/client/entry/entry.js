@@ -26,6 +26,7 @@ module.exports = class Entry {
 
         const div = document.createElement('div');
         div.id = this.entryId;
+        div.classList.add('entry');
 
         div.appendChild(labelForCheckbox);
         div.appendChild(textBox);
