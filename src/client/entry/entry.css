@@ -33,3 +33,7 @@
 .entry .dates .creation-date {
     color: grey;
 }
+
+.entry .remove {
+    flex: 1;
+}

@@ -28,15 +28,31 @@ module.exports = class Entry {
         dates.appendChild(creationDate);
         dates.appendChild(doneDate);
 
-        const div = document.createElement('div');
-        div.id = this.entryId;
-        div.classList.add('entry');
+        const removeIcon = document.createElement('i');
+        removeIcon.classList.add("fa");
+        removeIcon.classList.add("fa-trash");
 
-        div.appendChild(checkbox);
-        div.appendChild(text);
-        div.appendChild(dates);
+        const remove = document.createElement('i');
+        remove.classList.add('remove');
+        remove.classList.add('hidden');
 
-        openEntryList.appendChild(div);
+        remove.appendChild(removeIcon);
+
+        const entry = document.createElement('div');
+        entry.id = this.entryId;
+        entry.classList.add('entry');
+
+        entry.appendChild(checkbox);
+        entry.appendChild(text);
+        entry.appendChild(dates);
+        entry.appendChild(remove);
+
+        entry.addEventListener("mouseover", () => remove.classList.remove('hidden'));
+        entry.addEventListener("mouseleave", () => remove.classList.add('hidden'));
+
+        remove.addEventListener("click", () => entry.parentNode.removeChild(entry));
+
+        openEntryList.appendChild(entry);
     }
 
 };
