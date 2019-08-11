@@ -3,10 +3,13 @@ module.exports = class Entry {
         this.entryId = entryId;
     }
 
-    create(textValue) {
+    create(textValue, openEntryList, doneEntryList) {
         const checkbox = document.createElement('input');
         checkbox.classList.add('check-box');
         checkbox.type = 'checkbox';
+        checkbox.addEventListener("change", function (event) {
+            moveEntryToAnotherList.call(null, event, openEntryList, doneEntryList);
+        });
 
         const text = document.createElement('span');
         text.classList.add('text');
@@ -24,10 +27,21 @@ module.exports = class Entry {
         div.appendChild(text);
         div.appendChild(creationDate);
 
-        return div;
+        openEntryList.appendChild(div);
     }
 
 };
+
+function moveEntryToAnotherList(event, openEntryList, doneEntryList) {
+    const checkbox = event.target;
+    const entry = checkbox.parentElement;
+
+    if (checkbox.checked) {
+        doneEntryList.appendChild(entry);
+    } else {
+        openEntryList.appendChild(entry);
+    }
+}
 
 function getCurrentDate() {
     const date = new Date();
