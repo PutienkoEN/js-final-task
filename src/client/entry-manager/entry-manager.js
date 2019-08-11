@@ -28,6 +28,7 @@ module.exports = class EntryManager {
 
         const textInput = document.createElement('input');
         textInput.type = 'text';
+        textInput.placeholder = 'Enter your note here...';
         textInput.classList.add('new-entry-text');
 
         const addEntryButton = document.createElement('button');

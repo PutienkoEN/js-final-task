@@ -1,0 +1,31 @@
+.add-entry-area {
+    display: flex;
+}
+
+.add-entry-area input {
+    flex: 4;
+    padding: 6px 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid lightblue;
+    border-radius: 4px;
+    outline: none;
+}
+
+.add-entry-area input:focus {
+    border: 2px solid dodgerblue;
+}
+
+.add-entry-area button {
+    flex: 1;
+    background-color: lightblue;
+    border: none;
+    color: black;
+    padding: 6px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 8px 3px;
+}
+
