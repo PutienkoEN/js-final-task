@@ -1,4 +1,4 @@
-const createEditorArea = require('../entry-manager/edit-entry-handler');
+const createEditorArea = require('./entry-edit');
 
 module.exports = function createTodoList() {
     const todoList = document.createElement('div');

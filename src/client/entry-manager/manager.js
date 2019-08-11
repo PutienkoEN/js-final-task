@@ -1,6 +1,6 @@
-const createEntryList = require('../entry-manager/create-entry-list');
-const createAddEntryArea = require('../entry-manager/add-entry-area');
-const createTodoList = require('../entry-manager/create-todo-list');
+const createEntryList = require('./entry-list');
+const createAddEntryArea = require('./entry-add');
+const createTodoList = require('./todo-list');
 
 module.exports = class EntryManager {
     constructor() {
