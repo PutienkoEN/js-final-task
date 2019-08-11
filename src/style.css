@@ -1,2 +1,6 @@
 @import "client/entry/entry.css";
 @import "client/entry-manager/entry-manager.css";
+
+.hidden {
+    display: none;
+}

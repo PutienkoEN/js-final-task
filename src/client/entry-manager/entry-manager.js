@@ -9,8 +9,7 @@ module.exports = class EntryManager {
     create() {
         const addEntryArea = this.createAddEntryArea();
 
-        const openEntryList = document.createElement('div');
-        openEntryList.classList.add('open-entry-list');
+        const openEntryList = this.createOpenEntryList();
         this.openEntryList = openEntryList;
 
         const todoList = document.createElement('div');
@@ -40,6 +39,15 @@ module.exports = class EntryManager {
 
         return addEntryArea;
     }
+
+    createOpenEntryList() {
+        const openEntryList = document.createElement('div');
+        openEntryList.id = 'open-entry-list';
+        openEntryList.classList.add('entry-list');
+
+        return openEntryList;
+    }
+
 };
 
 function createEntry(textInput) {
