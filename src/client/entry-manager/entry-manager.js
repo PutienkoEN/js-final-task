@@ -1,4 +1,5 @@
 const createAddEntryArea = require('../entry-manager/add-entry-area');
+const startEditing = require('../entry-manager/edit-entry-handler');
 
 module.exports = class EntryManager {
     constructor() {
@@ -14,6 +15,7 @@ module.exports = class EntryManager {
 
         const todoList = document.createElement('div');
         todoList.id = 'todo-list';
+        todoList.addEventListener("dblclick", editEntry);
 
         todoList.appendChild(addEntryArea);
         todoList.appendChild(openEntryList);
@@ -28,5 +30,12 @@ module.exports = class EntryManager {
 
         return openEntryList;
     }
-
 };
+
+function editEntry(event) {
+    if (!event.target.classList.contains('text')) {
+        return;
+    }
+
+    startEditing(event.target.parentElement.id);
+}

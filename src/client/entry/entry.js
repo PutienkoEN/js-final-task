@@ -27,44 +27,7 @@ module.exports = class Entry {
         return div;
     }
 
-    startEditing() {
-        const entry = document.getElementById(this.entryId);
-        const textBlock = entry.querySelector('.text-block');
-        const text = textBlock.querySelector('.text');
-
-        const editorArea = createEditorArea(text.textContent);
-        editorArea.addEventListener("keyup", function (event) {
-            applyChanges(event, editorArea, text)
-        });
-
-        text.classList.add('hidden');
-        textBlock.appendChild(editorArea);
-    }
 };
-
-function createEditorArea(textToEdit) {
-    const editorArea = document.createElement('input');
-    editorArea.type = 'text';
-    editorArea.value = textToEdit;
-
-    return editorArea;
-}
-
-function applyChanges(event, input, textArea) {
-    if (event.which === 27) {
-        exitEditMode(input, textArea);
-    }
-
-    if (event.which === 13) {
-        textArea.textContent = input.value;
-        exitEditMode(input, textArea);
-    }
-}
-
-function exitEditMode(input, textArea) {
-    input.remove();
-    textArea.classList.remove('hidden');
-}
 
 function getCurrentDate() {
     const date = new Date();
