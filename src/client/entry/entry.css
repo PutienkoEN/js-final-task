@@ -24,6 +24,12 @@
     text-align: left;
 }
 
-.entry .creation-date {
+.entry .dates {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.entry .dates .creation-date {
+    color: grey;
 }

@@ -10,8 +10,8 @@ module.exports = class EntryManager {
     create() {
         const openEntryList = createEntryList('Open');
         const doneEntryList = createEntryList('Done');
-// openEntryList.elem
-        const addEntryArea = createAddEntryArea.call(this, openEntryList, doneEntryList);
+
+        const addEntryArea = createAddEntryArea.call(this, openEntryList.querySelector('.entry-list'), doneEntryList.querySelector('.entry-list'));
 
         const todoList = createTodoList.call(this);
 

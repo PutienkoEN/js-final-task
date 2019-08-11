@@ -19,13 +19,22 @@ module.exports = class Entry {
         creationDate.classList.add('creation-date');
         creationDate.textContent = getCurrentDate();
 
+        const doneDate = document.createElement('time');
+        doneDate.classList.add('done-date');
+
+        const dates = document.createElement('div');
+        dates.classList.add('dates');
+
+        dates.appendChild(creationDate);
+        dates.appendChild(doneDate);
+
         const div = document.createElement('div');
         div.id = this.entryId;
         div.classList.add('entry');
 
         div.appendChild(checkbox);
         div.appendChild(text);
-        div.appendChild(creationDate);
+        div.appendChild(dates);
 
         openEntryList.appendChild(div);
     }
@@ -37,10 +46,16 @@ function moveEntryToAnotherList(event, openEntryList, doneEntryList) {
     const entry = checkbox.parentElement;
 
     if (checkbox.checked) {
-        doneEntryList.appendChild(entry);
+        moveToList(entry, doneEntryList, getCurrentDate());
     } else {
-        openEntryList.appendChild(entry);
+        moveToList(entry, openEntryList, '')
     }
+}
+
+function moveToList(entry, entryList, date) {
+    entryList.insertBefore(entry, entryList.firstChild);
+    const done = entry.querySelector('.done-date');
+    done.textContent = date;
 }
 
 function getCurrentDate() {

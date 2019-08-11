@@ -1,7 +1,4 @@
 module.exports = function createEntryList(listName) {
-    const entryList = document.createElement('div');
-    entryList.id = `${listName.toLowerCase()}-entry-list`;
-    entryList.classList.add('entry-list');
 
     const listNameElement = document.createElement('h3');
     listNameElement.textContent = listName;
@@ -9,7 +6,15 @@ module.exports = function createEntryList(listName) {
     const headerElement = document.createElement('div');
     headerElement.appendChild(listNameElement);
 
-    entryList.appendChild(headerElement);
+    const entryList = document.createElement('div');
+    entryList.classList.add('entry-list');
 
-    return entryList;
+    const entryBlock = document.createElement('div');
+    entryBlock.id = `${listName.toLowerCase()}-entry-block`;
+    entryBlock.classList.add('entry-block');
+
+    entryBlock.appendChild(headerElement);
+    entryBlock.appendChild(entryList);
+
+    return entryBlock;
 };
