@@ -1,6 +1,6 @@
 const Entry = require('../entry/entry');
 
-module.exports = function createAddEntryArea() {
+module.exports = function createAddEntryArea(listToAddEntry) {
     const addEntryArea = document.createElement('div');
     addEntryArea.classList.add('add-entry-area');
 
@@ -11,7 +11,7 @@ module.exports = function createAddEntryArea() {
 
     const addEntryButton = document.createElement('button');
     addEntryButton.textContent = "ADD";
-    addEntryButton.addEventListener("click", createEntry.bind(this, textInput));
+    addEntryButton.addEventListener("click", createEntry.bind(this, textInput, listToAddEntry));
 
     addEntryArea.appendChild(textInput);
     addEntryArea.appendChild(addEntryButton);
@@ -19,7 +19,7 @@ module.exports = function createAddEntryArea() {
     return addEntryArea;
 };
 
-function createEntry(textInput) {
+function createEntry(textInput, listToAddEntry) {
     if (!textInput.value) {
         return;
     }
@@ -27,7 +27,7 @@ function createEntry(textInput) {
     const entryId = getEntryId.bind(this)();
     const newEntryHtml = createNewEntry(textInput.value, entryId);
     textInput.value = '';
-    this.openEntryList.appendChild(newEntryHtml);
+    listToAddEntry.appendChild(newEntryHtml);
 }
 
 function createNewEntry(entryText, entryId) {

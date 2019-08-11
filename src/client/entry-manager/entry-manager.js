@@ -1,72 +1,28 @@
+const createEntryList = require('../entry-manager/create-entry-list');
 const createAddEntryArea = require('../entry-manager/add-entry-area');
-const createEditorArea = require('../entry-manager/edit-entry-handler');
+const createTodoList = require('../entry-manager/create-todo-list');
 
 module.exports = class EntryManager {
     constructor() {
         this.entryIdCount = 1;
-        this.openEntryList = null;
     }
 
     create() {
-        const addEntryArea = createAddEntryArea.bind(this)();
+        const openEntryList = createEntryList();
+        openEntryList.id = 'open-entry-list';
 
-        const openEntryList = this.createOpenEntryList();
-        this.openEntryList = openEntryList;
+        const doneEntryList = createEntryList();
+        doneEntryList.id = 'done-entry-list';
 
-        const todoList = document.createElement('div');
-        todoList.id = 'todo-list';
-        todoList.addEventListener("dblclick", startEditing.bind(this));
+        const addEntryArea = createAddEntryArea.call(this, openEntryList);
+
+        const todoList = createTodoList.call(this);
 
         todoList.appendChild(addEntryArea);
         todoList.appendChild(openEntryList);
+        todoList.appendChild(doneEntryList);
 
         return todoList;
     }
 
-    createOpenEntryList() {
-        const openEntryList = document.createElement('div');
-        openEntryList.id = 'open-entry-list';
-        openEntryList.classList.add('entry-list');
-
-        return openEntryList;
-    }
 };
-
-function startEditing(event) {
-    if (!event.target.classList.contains('text')) {
-        return;
-    }
-
-    console.log(event.target);
-    const textElement = event.target.parentElement.querySelector('.text');
-    const inputElement = createEditorArea(textElement);
-    inputElement.focus();
-
-    window.addEventListener("keyup", function (event) {
-        if (validKey(event)) {
-            applyChanges(event, inputElement, textElement);
-            exitEditMode(inputElement, textElement);
-        }
-    })
-}
-
-function validKey(event) {
-    return event.which === 27 || event.which === 13;
-}
-
-function applyChanges(event, inputElement, textElement) {
-    if (event.which === 13) {
-        textElement.textContent = inputElement.value;
-    }
-}
-
-function exitEditMode(input, textArea) {
-    input.remove();
-    textArea.classList.remove('hidden');
-}
-
-//
-//
-// editorArea.addEventListener("keyup", function (event) {
-//     applyChanges(event, editorArea, text)
-// });
