@@ -1,37 +1,16 @@
-module.exports = function startEditing(entryId) {
-    const entry = document.getElementById(entryId);
-    const text = entry.querySelector('.text');
-
-    const editorArea = createEditorArea(text.textContent);
-    editorArea.addEventListener("keyup", function (event) {
-        applyChanges(event, editorArea, text)
-    });
-
+module.exports = function createEditorArea(text) {
     text.classList.add('hidden');
-    entry.insertBefore(editorArea, text);
-    editorArea.focus();
+
+    const editorArea = createInput(text.textContent);
+    text.parentElement.insertBefore(editorArea, text);
+
+    return editorArea;
 };
 
-function createEditorArea(textToEdit) {
+function createInput(textToEdit) {
     const editorArea = document.createElement('input');
     editorArea.type = 'text';
     editorArea.value = textToEdit;
 
     return editorArea;
-}
-
-function applyChanges(event, input, textArea) {
-    if (event.which === 27) {
-        exitEditMode(input, textArea);
-    }
-
-    if (event.which === 13) {
-        textArea.textContent = input.value;
-        exitEditMode(input, textArea);
-    }
-}
-
-function exitEditMode(input, textArea) {
-    input.remove();
-    textArea.classList.remove('hidden');
 }
