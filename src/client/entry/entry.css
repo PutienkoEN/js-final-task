@@ -1,5 +1,6 @@
 .entry {
     display: flex;
+    flex-direction: row;
     margin: 15px 0;
     padding: 10px 10px;
     border-radius: 5px;
@@ -10,13 +11,17 @@
     flex: 1;
 }
 
-.entry .text-block {
-    display: flex;
+.entry input[type=text] {
     flex: 8;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid grey;
 }
 
 .entry .text {
-    flex: 9;
+    flex: 8;
+    text-align: left;
 }
 
 .entry .creation-date {
