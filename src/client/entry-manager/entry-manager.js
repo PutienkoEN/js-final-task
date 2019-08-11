@@ -8,11 +8,8 @@ module.exports = class EntryManager {
     }
 
     create() {
-        const openEntryList = createEntryList();
-        openEntryList.id = 'open-entry-list';
-
-        const doneEntryList = createEntryList();
-        doneEntryList.id = 'done-entry-list';
+        const openEntryList = createEntryList('Open');
+        const doneEntryList = createEntryList('Done');
 
         const addEntryArea = createAddEntryArea.call(this, openEntryList);
 

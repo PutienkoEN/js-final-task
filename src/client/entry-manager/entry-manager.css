@@ -1,4 +1,5 @@
 @import "add-entry-area.css";
+@import "entry-list.css";
 
 #todo-list {
     flex-direction: column;
