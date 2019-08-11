@@ -31,5 +31,17 @@ module.exports = class Entry {
 
 function getCurrentDate() {
     const date = new Date();
-    return `${date.getHours()}:${date.getMinutes()}`;
+
+    let day = topUpToTwoDigits(date.getDate());
+    let month = topUpToTwoDigits(date.getMonth() + 1);
+    let year = date.getFullYear();
+
+    return `${day}.${month}.${year}`;
+}
+
+function topUpToTwoDigits(value) {
+    if (value.toString().length === 1) {
+        return "0" + value;
+    }
+    return value;
 }
