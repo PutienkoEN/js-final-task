@@ -18,6 +18,7 @@ module.exports = class EntryManager {
         this.openListView.addEntryElement(entryView.draw());
 
         this.lastEntryId++;
+        localStorage.setItem('openEntries', JSON.stringify(this.openList));
         localStorage.setItem('lastEntryId', this.lastEntryId);
     }
 
