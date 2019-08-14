@@ -10,6 +10,7 @@ module.exports = class EntryManager {
         const entry = new Entry(this.lastEntryId, text);
         this.openList.addEntry(entry);
         this.lastEntryId++;
+        localStorage.setItem('lastEntryId', this.lastEntryId);
     }
 
 };
