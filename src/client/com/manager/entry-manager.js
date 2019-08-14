@@ -14,14 +14,13 @@ module.exports = class EntryManager {
         const entry = new Entry(this.lastEntryId, text);
         this.openList.addEntry(entry);
 
-        const entryView = new EntryView(entry, this);
+        const entryView = new EntryView(entry, this.changeEntryStatus.bind(this));
         this.openListView.addEntryElement(entryView.draw());
 
         this.lastEntryId++;
 
         updateOpenEntriesStorage.call(this);
         updateLastEntryIdStorage.call(this);
-
     }
 
     changeEntryStatus(entryId) {
@@ -32,7 +31,6 @@ module.exports = class EntryManager {
             changeEntry.bind(this)(entryId, this.doneList, this.openList, this.doneListView, this.openListView);
         }
     }
-
 };
 
 function changeEntry(entryId, firstList, secondList, firstView, secondView) {
