@@ -1,4 +1,5 @@
 const Entry = require('../entry/entry');
+const EntryView = require('../entry/entry-view');
 
 module.exports = class EntryManager {
     constructor(openList, openListView, doneList, doneListView) {
@@ -12,7 +13,9 @@ module.exports = class EntryManager {
     addNewEntry(text) {
         const entry = new Entry(this.lastEntryId, text);
         this.openList.addEntry(entry);
-        this.openListView.addEntryElement(entry.draw());
+
+        const entryView = new EntryView(entry);
+        this.openListView.addEntryElement(entryView.draw());
 
         this.lastEntryId++;
         localStorage.setItem('lastEntryId', this.lastEntryId);
