@@ -14,7 +14,7 @@ module.exports = class EntryManager {
         const entry = new Entry(this.lastEntryId, text);
         this.openList.addEntry(entry);
 
-        const entryView = new EntryView(entry, this.changeEntryStatus.bind(this));
+        const entryView = new EntryView(entry, this.changeEntryStatus.bind(this), this.removeEntryForId.bind(this));
         this.openListView.addEntryElement(entryView.draw());
 
         this.lastEntryId++;
@@ -31,7 +31,25 @@ module.exports = class EntryManager {
             changeEntry.bind(this)(entryId, this.doneList, this.openList, this.doneListView, this.openListView);
         }
     }
+
+    removeEntryForId(entryId) {
+        if (this.openList.containsEntry(entryId)) {
+            removeEntry(entryId, this.openList, this.openListView, updateOpenEntriesStorage.bind(this))
+        } else if (this.doneList.containsEntry(entryId)) {
+            removeEntry(entryId, this.doneList, this.doneListView, updateDoneEntriesStorage.bind(this))
+        }
+    }
+
 };
+
+function removeEntry(entryId, entriesData, entriesView, storageUpdate) {
+    entriesData.removeEntry(entryId);
+
+    const entryElement = entriesView.getEntryElement(entryId);
+    entriesView.removeEntryElement(entryElement);
+
+    storageUpdate();
+}
 
 function changeEntry(entryId, firstList, secondList, firstView, secondView) {
     const entry = firstList.getEntry(entryId);

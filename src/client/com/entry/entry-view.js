@@ -1,7 +1,8 @@
 module.exports = class EntryView {
-    constructor(entryData, changeEntryStatusFunction) {
+    constructor(entryData, changeEntryStatusFunction, removeEntryFunction) {
         this.entryData = entryData;
         this.changeEntryStatusFunction = changeEntryStatusFunction;
+        this.removeEntryFunction = removeEntryFunction;
     }
 
     draw() {
@@ -53,7 +54,9 @@ module.exports = class EntryView {
         entry.addEventListener("mouseover", () => remove.classList.remove('hidden'));
         entry.addEventListener("mouseleave", () => remove.classList.add('hidden'));
 
-        // remove.addEventListener("click", () => entry.parentNode.removeChild(entry));
+        remove.addEventListener("click", function () {
+            this.removeEntryFunction(this.entryData.entryId)
+        }.bind(this));
 
         return entry;
     }

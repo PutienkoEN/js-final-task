@@ -15,4 +15,8 @@ module.exports = class EntryList {
     removeEntry(entryId) {
         this.entries = this.entries.filter(entry => entry.entryId !== entryId);
     }
+
+    containsEntry(entryId) {
+        return this.entries.findIndex(entry => entry.entryId === entryId) !== -1;
+    }
 };
