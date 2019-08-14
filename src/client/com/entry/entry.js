@@ -7,11 +7,13 @@ module.exports = class Entry {
         this.doneDate = null;
     }
 
-    done() {
+    finishTask() {
         this.isDone = true;
+        this.doneDate = new Date();
     }
 
-    open() {
+    startTask() {
         this.isDone = false;
+        this.doneDate = null;
     }
 };

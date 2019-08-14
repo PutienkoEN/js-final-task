@@ -25,7 +25,7 @@ module.exports = class EntryManager {
 
     markEntryAsDone(entryId) {
         const entry = this.openList.getEntry(entryId);
-        entry.isDone = !entry.isDone;
+        entry.finishTask();
 
         this.doneList.addEntry(entry);
         this.openList.removeEntry(entryId);
@@ -40,7 +40,7 @@ module.exports = class EntryManager {
 
     markEntryAsOpen(entryId) {
         const entry = this.doneList.getEntry(entryId);
-        entry.isDone = !entry.isDone;
+        entry.startTask();
 
         this.openList.addEntry(entry);
         this.doneList.removeEntry(entryId);
