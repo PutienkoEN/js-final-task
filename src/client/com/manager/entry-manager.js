@@ -66,8 +66,8 @@ function changeEntry(entryId, firstList, secondList, firstView, secondView) {
     firstView.removeEntryElement(entryElement);
     secondView.addEntryElement(entryElement);
 
-    updateOpenEntriesStorage();
-    updateDoneEntriesStorage();
+    updateOpenEntriesStorage.call(this);
+    updateDoneEntriesStorage.call(this);
 }
 
 function updateOpenEntriesStorage() {
