@@ -1,12 +1,12 @@
 const EntryList = require('../entry-list/entry-list');
-const Entry = require('../entry/entry');
-const AddEntryService = require('../add-entry/add-entry');
+const EntryManager = require('../add-entry/add-entry');
+const AddEntryView = require('../add-entry/add-entry-view');
 
 module.exports = class Manager {
     constructor() {
         this.openList = new EntryList("open-list");
         this.doneList = new EntryList("done-list");
-        this.addEntryService = new AddEntryService(this.openList)
+        this.entryManager = new EntryManager(this.openList)
     }
 
     start() {
@@ -18,7 +18,8 @@ module.exports = class Manager {
         const openListElement = this.openList.draw();
         const doneListElement = this.doneList.draw();
 
-        const createEntryArea = this.addEntryService.draw();
+        const addEntryView = new AddEntryView(this.entryManager);
+        const createEntryArea = addEntryView.draw();
 
         const todoList = createCoreHtml();
         todoList.appendChild(createEntryArea);
@@ -36,3 +37,10 @@ function createCoreHtml() {
 
     return todoList;
 }
+
+//
+// draw()
+// {
+//     const addEntryView = new AddEntryView(addNewEntry.bind(this))
+//     return addEntryView.draw();
+// }
