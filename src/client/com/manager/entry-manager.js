@@ -1,11 +1,12 @@
 const Entry = require('../entry/entry');
-const EntryListView = require('../entry-list/entry-list-view');
 
 module.exports = class EntryManager {
-    constructor(openList, openListView) {
+    constructor(openList, openListView, doneList, doneListView) {
         this.lastEntryId = 1;
         this.openList = openList;
         this.openListView = openListView;
+        this.doneList = doneList;
+        this.doneListView = doneListView;
     }
 
     addNewEntry(text) {

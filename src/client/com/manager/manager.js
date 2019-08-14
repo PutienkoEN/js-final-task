@@ -8,7 +8,8 @@ module.exports = class Manager {
         this.openList = new EntryList("open-list");
         this.openListView = new EntryListView(this.openList);
         this.doneList = new EntryList("done-list");
-        this.entryManager = new EntryManager(this.openList, this.openListView)
+        this.doneListView = new EntryListView(this.doneList);
+        this.entryManager = new EntryManager(this.openList, this.openListView, this.doneList, this.doneListView)
     }
 
     start() {
@@ -16,14 +17,13 @@ module.exports = class Manager {
     }
 
     draw() {
-
-
         const addEntryView = new AddEntryView(this.entryManager);
         const createEntryArea = addEntryView.draw();
 
         const todoList = createCoreHtml();
         todoList.appendChild(createEntryArea);
         todoList.appendChild(this.openListView.draw());
+        todoList.appendChild(this.doneListView.draw());
 
 
         document.body.appendChild(todoList);
