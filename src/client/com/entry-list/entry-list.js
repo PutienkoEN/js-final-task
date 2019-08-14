@@ -5,14 +5,14 @@ module.exports = class EntryList {
     }
 
     addEntry(entry) {
-        this.entries.unshift(entry);
+        this.entries.push(entry);
     }
 
     getEntry(entryId) {
-        return this.entries.filter(entry => entry.entryId === entryId);
+        return this.entries.find(entry => entry.entryId === entryId);
     }
 
     removeEntry(entryId) {
-        this.entries = this.entries.filter(entry => entry.entryId !== entryId)
+        this.entries = this.entries.filter(entry => entry.entryId !== entryId);
     }
 };

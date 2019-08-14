@@ -1,7 +1,6 @@
 const Entry = require('../entry/entry');
 const EntryView = require('../entry/entry-view');
 
-
 module.exports = class EntryManager {
     constructor(openList, openListView, doneList, doneListView) {
         this.lastEntryId = 1;
@@ -26,13 +25,29 @@ module.exports = class EntryManager {
 
     markEntryAsDone(entryId) {
         const entry = this.openList.getEntry(entryId);
+        entry.isDone = !entry.isDone;
 
-        this.openList.removeEntry(entryId);
         this.doneList.addEntry(entry);
+        this.openList.removeEntry(entryId);
 
         const entryElement = this.openListView.getEntryElement(entryId);
         this.openListView.removeEntryElement(entryElement);
         this.doneListView.addEntryElement(entryElement);
+
+        this.updateOpenEntriesStorage();
+        this.updateDoneEntriesStorage();
+    }
+
+    markEntryAsOpen(entryId) {
+        const entry = this.doneList.getEntry(entryId);
+        entry.isDone = !entry.isDone;
+
+        this.openList.addEntry(entry);
+        this.doneList.removeEntry(entryId);
+
+        const entryElement = this.doneListView.getEntryElement(entryId);
+        this.doneListView.removeEntryElement(entryElement);
+        this.openListView.addEntryElement(entryElement);
 
         this.updateOpenEntriesStorage();
         this.updateDoneEntriesStorage();
@@ -51,3 +66,4 @@ module.exports = class EntryManager {
     }
 
 };
+

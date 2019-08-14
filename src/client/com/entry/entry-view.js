@@ -2,15 +2,21 @@ module.exports = class EntryView {
     constructor(entryData, entryManager) {
         this.entryData = entryData;
         this.entryManager = entryManager;
+
     }
 
     draw() {
         const checkbox = document.createElement('input');
         checkbox.classList.add('check-box');
         checkbox.type = 'checkbox';
-        checkbox.checked = this.entryData.checked;
+        checkbox.checked = this.entryData.isDone;
+
         checkbox.addEventListener("change", function () {
-            this.entryManager.markEntryAsDone(this.entryData.entryId);
+            if (this.entryData.isDone) {
+                this.entryManager.markEntryAsOpen(this.entryData.entryId);
+            } else {
+                this.entryManager.markEntryAsDone(this.entryData.entryId);
+            }
         }.bind(this));
 
         const text = document.createElement('span');

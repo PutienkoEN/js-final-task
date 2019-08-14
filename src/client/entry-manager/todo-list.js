@@ -13,7 +13,6 @@ function startEditing(event) {
         return;
     }
 
-    console.log(event.target);
     const textElement = event.target.parentElement.querySelector('.text');
     const inputElement = createEditorArea(textElement);
     inputElement.focus();
