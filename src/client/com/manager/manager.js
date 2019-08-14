@@ -1,11 +1,12 @@
-const EntryList = require('./entry-list');
-const Entry = require('../../com/entry/entry');
+const EntryList = require('../entry-list/entry-list');
+const Entry = require('../entry/entry');
+const AddEntryService = require('../add-entry/add-entry');
 
 module.exports = class Manager {
     constructor() {
-        this.lastEntryId = 1;
         this.openList = new EntryList("open-list");
         this.doneList = new EntryList("done-list");
+        this.addEntryService = new AddEntryService(this.openList)
     }
 
     start() {
@@ -17,7 +18,7 @@ module.exports = class Manager {
         const openListElement = this.openList.draw();
         const doneListElement = this.doneList.draw();
 
-        const createEntryArea = createAddEntryArea(openListElement, doneListElement);
+        const createEntryArea = this.addEntryService.draw();
 
         const todoList = createCoreHtml();
         todoList.appendChild(createEntryArea);
@@ -34,23 +35,4 @@ function createCoreHtml() {
     // todoList.addEventListener("dblclick", startEditing.bind(this));
 
     return todoList;
-}
-
-function createAddEntryArea(openEntryList, doneEntryList) {
-    const addEntryArea = document.createElement('div');
-    addEntryArea.classList.add('add-entry-area');
-
-    const textInput = document.createElement('input');
-    textInput.type = 'text';
-    textInput.placeholder = 'Enter your note here...';
-    textInput.classList.add('new-entry-text');
-
-    const addEntryButton = document.createElement('button');
-    addEntryButton.textContent = "ADD";
-    // addEntryButton.addEventListener("click", createEntry.bind(this, textInput, openEntryList, doneEntryList));
-
-    addEntryArea.appendChild(textInput);
-    addEntryArea.appendChild(addEntryButton);
-
-    return addEntryArea;
 }
