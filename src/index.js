@@ -1,8 +1,6 @@
 import './style.css';
 
-const EntryManager = require('./client/entry-manager/manager');
+const Manager = require('./client/com/manager/manager');
 
-const entryManager = new EntryManager();
-const entryManagerHtml = entryManager.create();
-
-document.body.appendChild(entryManagerHtml);
+const manager = new Manager();
+manager.start();
