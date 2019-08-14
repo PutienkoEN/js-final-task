@@ -12,10 +12,19 @@ module.exports = class EntryManager {
     addNewEntry(text) {
         const entry = new Entry(this.lastEntryId, text);
         this.openList.addEntry(entry);
-        this.openListView.addEntry(entry.draw());
+        this.openListView.addEntryElement(entry.draw());
 
         this.lastEntryId++;
         localStorage.setItem('lastEntryId', this.lastEntryId);
     }
 
+    markEntryAsDone(entryId) {
+        const entry = this.openList.getEntry(entryId);
+        console.log(entry);
+        this.doneList.addEntry(entry);
+
+        const entryElement = this.openListView.removeEntryElement(entryId);
+        this.doneListView.addEntryElement(entryElement);
+
+    }
 };

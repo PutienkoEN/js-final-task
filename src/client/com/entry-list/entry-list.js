@@ -7,4 +7,10 @@ module.exports = class EntryList {
     addEntry(entry) {
         this.entries.unshift(entry);
     }
+
+    getEntry(entryId) {
+        return this.entries.filter(entry => entry.entryId === entryId);
+
+    }
+
 };

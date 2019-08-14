@@ -4,8 +4,13 @@ module.exports = class EntryListView {
         this.entryListElement = null;
     }
 
-    addEntry(entryElement) {
+    addEntryElement(entryElement) {
         this.entryListElement.appendChild(entryElement);
+    }
+
+    removeEntryElement(entryId) {
+        const entryElement = this.entryListElement.querySelector('#' + entryId);
+        this.entryListElement.removeChild(entryElement);
     }
 
     draw() {
