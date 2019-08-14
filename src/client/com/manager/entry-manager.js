@@ -18,52 +18,50 @@ module.exports = class EntryManager {
         this.openListView.addEntryElement(entryView.draw());
 
         this.lastEntryId++;
-        this.updateOpenEntriesStorage();
-        this.updateLastEntryIdStorage();
+
+        updateOpenEntriesStorage.call(this);
+        updateLastEntryIdStorage.call(this);
 
     }
 
-    markEntryAsDone(entryId) {
+    changeEntryStatus(entryId) {
         const entry = this.openList.getEntry(entryId);
-        entry.finishTask();
-
-        this.doneList.addEntry(entry);
-        this.openList.removeEntry(entryId);
-
-        const entryElement = this.openListView.getEntryElement(entryId);
-        this.openListView.removeEntryElement(entryElement);
-        this.doneListView.addEntryElement(entryElement);
-
-        this.updateOpenEntriesStorage();
-        this.updateDoneEntriesStorage();
-    }
-
-    markEntryAsOpen(entryId) {
-        const entry = this.doneList.getEntry(entryId);
-        entry.startTask();
-
-        this.openList.addEntry(entry);
-        this.doneList.removeEntry(entryId);
-
-        const entryElement = this.doneListView.getEntryElement(entryId);
-        this.doneListView.removeEntryElement(entryElement);
-        this.openListView.addEntryElement(entryElement);
-
-        this.updateOpenEntriesStorage();
-        this.updateDoneEntriesStorage();
-    }
-
-    updateOpenEntriesStorage() {
-        localStorage.setItem('openEntries', JSON.stringify(this.openList));
-    }
-
-    updateDoneEntriesStorage() {
-        localStorage.setItem('doneEntries', JSON.stringify(this.doneList));
-    }
-
-    updateLastEntryIdStorage() {
-        localStorage.setItem('lastEntryId', this.lastEntryId);
+        if (entry) {
+            changeEntry.bind(this)(entryId, this.openList, this.doneList, this.openListView, this.doneListView);
+        } else {
+            changeEntry.bind(this)(entryId, this.doneList, this.openList, this.doneListView, this.openListView);
+        }
     }
 
 };
 
+function changeEntry(entryId, firstList, secondList, firstView, secondView) {
+    const entry = firstList.getEntry(entryId);
+    if (entry.isDone) {
+        entry.finishTask();
+    } else {
+        entry.startTask();
+    }
+
+    secondList.addEntry(entry);
+    firstList.removeEntry(entryId);
+
+    const entryElement = firstView.getEntryElement(entryId);
+    firstView.removeEntryElement(entryElement);
+    secondView.addEntryElement(entryElement);
+
+    updateOpenEntriesStorage();
+    updateDoneEntriesStorage();
+}
+
+function updateOpenEntriesStorage() {
+    localStorage.setItem('openEntries', JSON.stringify(this.openList));
+}
+
+function updateDoneEntriesStorage() {
+    localStorage.setItem('doneEntries', JSON.stringify(this.doneList));
+}
+
+function updateLastEntryIdStorage() {
+    localStorage.setItem('lastEntryId', this.lastEntryId);
+}

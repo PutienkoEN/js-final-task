@@ -12,11 +12,7 @@ module.exports = class EntryView {
         checkbox.checked = this.entryData.isDone;
 
         checkbox.addEventListener("change", function () {
-            if (this.entryData.isDone) {
-                this.entryManager.markEntryAsOpen(this.entryData.entryId);
-            } else {
-                this.entryManager.markEntryAsDone(this.entryData.entryId);
-            }
+            this.entryManager.changeEntryStatus(this.entryData.entryId);
         }.bind(this));
 
         const text = document.createElement('span');
