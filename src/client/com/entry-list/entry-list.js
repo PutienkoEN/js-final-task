@@ -10,7 +10,9 @@ module.exports = class EntryList {
 
     getEntry(entryId) {
         return this.entries.filter(entry => entry.entryId === entryId);
-
     }
 
+    removeEntry(entryId) {
+        this.entries = this.entries.filter(entry => entry.entryId !== entryId)
+    }
 };

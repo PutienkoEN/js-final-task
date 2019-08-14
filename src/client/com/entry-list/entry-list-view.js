@@ -4,12 +4,15 @@ module.exports = class EntryListView {
         this.entryListElement = null;
     }
 
+    getEntryElement(entryId) {
+        return this.entryListElement.querySelector('#' + entryId);
+    }
+
     addEntryElement(entryElement) {
         this.entryListElement.appendChild(entryElement);
     }
 
-    removeEntryElement(entryId) {
-        const entryElement = this.entryListElement.querySelector('#' + entryId);
+    removeEntryElement(entryElement) {
         this.entryListElement.removeChild(entryElement);
     }
 

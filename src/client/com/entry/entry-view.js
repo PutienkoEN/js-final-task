@@ -1,6 +1,7 @@
 module.exports = class EntryView {
-    constructor(entryData) {
+    constructor(entryData, entryManager) {
         this.entryData = entryData;
+        this.entryManager = entryManager;
     }
 
     draw() {
@@ -8,9 +9,9 @@ module.exports = class EntryView {
         checkbox.classList.add('check-box');
         checkbox.type = 'checkbox';
         checkbox.checked = this.entryData.checked;
-        // checkbox.addEventListener("change", function (event) {
-        //     moveEntryToAnotherList.call(null, event, openEntryList, doneEntryList);
-        // });
+        checkbox.addEventListener("change", function () {
+            this.entryManager.markEntryAsDone(this.entryData.entryId);
+        }.bind(this));
 
         const text = document.createElement('span');
         text.classList.add('text');
