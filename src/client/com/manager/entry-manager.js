@@ -5,10 +5,11 @@ const EntryListView = require('../entry-list/entry-list-view');
 
 module.exports = class EntryManager {
     constructor() {
-        this.lastEntryId = 1;
+        this.lastEntryId = getLastEntryId();
         this.openList = new EntryList("open-list");
-        this.openListView = new EntryListView(this.openList);
         this.doneList = new EntryList("done-list");
+
+        this.openListView = new EntryListView(this.openList);
         this.doneListView = new EntryListView(this.doneList);
     }
 
@@ -74,4 +75,9 @@ function changeEntry(entryId, firstList, secondList, firstView, secondView) {
 function updateLastEntryId() {
     this.lastEntryId++;
     localStorage.setItem('lastEntryId', this.lastEntryId);
+}
+
+function getLastEntryId() {
+    const lastEntryId = localStorage.getItem('lastEntryId');
+    return lastEntryId ? lastEntryId : 1;
 }
