@@ -1,7 +1,7 @@
 module.exports = class EntryList {
     constructor(listName) {
         this.listName = listName;
-        this.entries = [];
+        this.entries = getEntries(listName);
     }
 
     addEntry(entry) {
@@ -19,4 +19,13 @@ module.exports = class EntryList {
     containsEntry(entryId) {
         return this.entries.findIndex(entry => entry.entryId === entryId) !== -1;
     }
+
+    updateStorage() {
+        localStorage.setItem(this.listName, JSON.stringify(this));
+    }
 };
+
+function getEntries(storeId) {
+    const entries = localStorage.getItem(this.listName);
+    return entries ? entries : [];
+}

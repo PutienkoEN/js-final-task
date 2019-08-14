@@ -1,13 +1,15 @@
 const Entry = require('../entry/entry');
 const EntryView = require('../entry/entry-view');
+const EntryList = require('../entry-list/entry-list');
+const EntryListView = require('../entry-list/entry-list-view');
 
 module.exports = class EntryManager {
-    constructor(openList, openListView, doneList, doneListView) {
+    constructor() {
         this.lastEntryId = 1;
-        this.openList = openList;
-        this.openListView = openListView;
-        this.doneList = doneList;
-        this.doneListView = doneListView;
+        this.openList = new EntryList("open-list");
+        this.openListView = new EntryListView(this.openList);
+        this.doneList = new EntryList("done-list");
+        this.doneListView = new EntryListView(this.doneList);
     }
 
     addNewEntry(text) {
@@ -17,10 +19,9 @@ module.exports = class EntryManager {
         const entryView = new EntryView(entry, this.changeEntryStatus.bind(this), this.removeEntryForId.bind(this));
         this.openListView.addEntryElement(entryView.draw());
 
-        this.lastEntryId++;
+        updateLastEntryId.call(this);
 
-        updateOpenEntriesStorage.call(this);
-        updateLastEntryIdStorage.call(this);
+        this.openList.updateStorage();
     }
 
     changeEntryStatus(entryId) {
@@ -34,21 +35,21 @@ module.exports = class EntryManager {
 
     removeEntryForId(entryId) {
         if (this.openList.containsEntry(entryId)) {
-            removeEntry(entryId, this.openList, this.openListView, updateOpenEntriesStorage.bind(this))
+            removeEntry(entryId, this.openList, this.openListView)
         } else if (this.doneList.containsEntry(entryId)) {
-            removeEntry(entryId, this.doneList, this.doneListView, updateDoneEntriesStorage.bind(this))
+            removeEntry(entryId, this.doneList, this.doneListView)
         }
     }
 
 };
 
-function removeEntry(entryId, entriesData, entriesView, storageUpdate) {
-    entriesData.removeEntry(entryId);
+function removeEntry(entryId, entriesList, entriesView) {
+    entriesList.removeEntry(entryId);
 
     const entryElement = entriesView.getEntryElement(entryId);
     entriesView.removeEntryElement(entryElement);
 
-    storageUpdate();
+    entriesList.updateStorage();
 }
 
 function changeEntry(entryId, firstList, secondList, firstView, secondView) {
@@ -66,18 +67,11 @@ function changeEntry(entryId, firstList, secondList, firstView, secondView) {
     firstView.removeEntryElement(entryElement);
     secondView.addEntryElement(entryElement);
 
-    updateOpenEntriesStorage.call(this);
-    updateDoneEntriesStorage.call(this);
+    firstList.updateStorage();
+    secondList.updateStorage();
 }
 
-function updateOpenEntriesStorage() {
-    localStorage.setItem('openEntries', JSON.stringify(this.openList));
-}
-
-function updateDoneEntriesStorage() {
-    localStorage.setItem('doneEntries', JSON.stringify(this.doneList));
-}
-
-function updateLastEntryIdStorage() {
+function updateLastEntryId() {
+    this.lastEntryId++;
     localStorage.setItem('lastEntryId', this.lastEntryId);
 }
