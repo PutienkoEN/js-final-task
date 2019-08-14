@@ -1,5 +1,5 @@
 const EntryList = require('../entry-list/entry-list');
-const EntryManager = require('../add-entry/add-entry');
+const EntryManager = require('./entry-manager');
 const AddEntryView = require('../add-entry/add-entry-view');
 
 module.exports = class Manager {

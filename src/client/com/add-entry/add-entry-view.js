@@ -26,8 +26,4 @@ module.exports = class AddEntryView {
         return addEntryArea;
     }
 
-    getText() {
-        return this.textInput.value;
-    }
-
 };
