@@ -1,3 +1,5 @@
+const EntryView = require('../entry/entry-view');
+
 module.exports = class EntryListView {
     constructor(listData) {
         this.listData = listData;
@@ -25,6 +27,9 @@ module.exports = class EntryListView {
 
         const entryList = document.createElement('div');
         entryList.classList.add('entry-list');
+        console.log(this.listData.entries);
+        this.listData.entries.forEach(entry => entryList.appendChild(createEntryView(entry)));
+
         this.entryListElement = entryList;
 
         const entryBlock = document.createElement('div');
@@ -37,3 +42,7 @@ module.exports = class EntryListView {
         return entryBlock;
     };
 };
+
+function createEntryView(entryData) {
+    return new EntryView(entryData).draw();
+}

@@ -1,7 +1,7 @@
 module.exports = class EntryList {
     constructor(listName) {
         this.listName = listName;
-        this.entries = getEntries(listName);
+        this.entries = getEntriesFromStore(listName);
     }
 
     addEntry(entry) {
@@ -25,7 +25,17 @@ module.exports = class EntryList {
     }
 };
 
-function getEntries(storeId) {
-    const entries = localStorage.getItem(this.listName);
-    return entries ? entries : [];
+function getEntriesFromStore(storeId) {
+    const self = localStorage.getItem(storeId);
+    const entries = self ? JSON.parse(self).entries : [];
+
+    entries
+        .filter(entry => entry.creationDate !== null)
+        .forEach(entry => entry.creationDate = new Date(entry.creationDate));
+
+    entries
+        .filter(entry => entry.doneDate !== null)
+        .forEach(entry => entry.doneDate = new Date(entry.doneDate));
+
+    return entries;
 }
